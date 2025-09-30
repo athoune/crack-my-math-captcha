@@ -1,0 +1,71 @@
+from operator import add, mul
+import random
+
+NUMBERS = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "height",
+    9: "nine",
+    10: "ten",
+    11: "eleven",
+    12: "twelve",
+    13: "thirteen",
+    14: "fourteen",
+    15: "fifteen",
+    16: "sixteen",
+    17: "seventeen",
+    18: "heighteen",
+    19: "nineteen",
+    20: "twenty",
+    30: "thirty",
+    40: "forty",
+    50: "fifty",
+    60: "sixty",
+    70: "seventy",
+    80: "heighty",
+    90: "ninety",
+}
+
+
+def to_text(n: int) -> str:
+    assert isinstance(n, int)
+    assert n < 100
+    if n < 20:
+        return NUMBERS[n]
+    a, b = divmod(n, 10)
+    return NUMBERS[a * 10] + " " + NUMBERS[b]
+
+
+def some_random_operation() -> tuple[str, int]:
+    op = random.choice(["+", "-", "*", "/"])
+    if op in "*/":
+        a = random.randint(1, 10)
+        b = random.randint(1, 10)
+    else:
+        a = random.randint(1, 100)
+        b = random.randint(1, 100)
+    return operation(a, b, op)
+
+
+def operation(a: int, b: int, op: str) -> tuple[str, int]:
+    r: int = 0
+    if op in "-/" and a < b:
+        b, a = a, b
+    if op == "/":
+        r = a
+        a = r * b
+    elif op == "*":
+        r = mul(a, b)
+    elif op == "+":
+        r = add(a, b)
+    elif op == "-":
+        r = add(a, -b)
+
+    eq = f"{to_text(a)} {op} {to_text(b)}"
+    return eq, r
