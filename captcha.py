@@ -42,14 +42,12 @@ def to_text(n: int) -> str:
     return NUMBERS[a * 10] + " " + NUMBERS[b]
 
 
-def some_random_operation() -> tuple[str, int]:
+def some_random_operation(max: int = 100) -> tuple[str, int]:
     op = random.choice(["+", "-", "*", "/"])
     if op in "*/":
-        a = random.randint(1, 10)
-        b = random.randint(1, 10)
-    else:
-        a = random.randint(1, 100)
-        b = random.randint(1, 100)
+        max = int(max**0.5)
+    a = random.randint(1, max)
+    b = random.randint(1, max)
     return operation(a, b, op)
 
 

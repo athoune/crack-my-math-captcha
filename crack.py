@@ -12,7 +12,7 @@ from captcha import some_random_operation
 @aiohttp_jinja2.template("index.html")
 async def handle_home(request):
     session = await get_session(request)
-    c, session["response"] = some_random_operation()
+    c, session["response"] = some_random_operation(20)
     return {"captcha": c}
 
 
