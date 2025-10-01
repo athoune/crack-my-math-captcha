@@ -1,12 +1,40 @@
 {% extends "base.html" %} {% block content %}
 <h1>My bullet proof advanced math captcha</h1>
 
-<p >
 <form action="/submit" method="post">
-    <label for="captcha">Enter the result of <span id="captcha">{{ captcha }}</span>: </label>
-    <input  id="in_captcha" name="captcha" required />
+    <label for="captcha"
+        >Enter the result of <span id="captcha">{{ captcha }}</span>:
+    </label>
+    <input id="in_captcha" name="captcha" required />
     <button type="submit">Submit</button>
 </form>
+
+<h2>REST API</h2>
+
+<p>Parsing HTML can be boring, here is the REST API.</p>
+<code>GET /api/challenge</code>
+
+<p>The server gives a challenge, and a secret (the crypted response).</p>
+
+<pre>
+{
+    "challenge": "seven + sixteen",
+    "secret": "gAAAAABo3UlwKjJ9nZDynItpjxCnJDy4-VmIVOmqLbr2jOexjYFLtOK9dmte3VtF9p19SRjdYHFLZWabYEmRgqy80Gl507xtKw=="
+}
+</pre>
+
+<code>POST /api/response</code>
+
+<p>
+    POST your response with the previous secret. The server answers true or
+    false.
 </p>
+
+<pre>
+{
+    "response": 23,
+    "secret":"gAAAAABo3UlwKjJ9nZDynItpjxCnJDy4-VmIVOmqLbr2jOexjYFLtOK9dmte3VtF9p19SRjdYHFLZWabYEmRgqy80Gl507xtKw=="
+}
+</pre>
 
 {% endblock %}
