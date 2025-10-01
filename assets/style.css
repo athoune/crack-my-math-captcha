@@ -1,0 +1,62 @@
+/*
+See https://codepen.io/AviralSharma77/pen/eYQybgv
+*/
+body {
+    background: rgb(15, 15, 15);
+    align-items: center;
+    padding: 65px 55px;
+    background-color: #000000;
+    opacity: 0.8;
+    background-image: linear-gradient(0deg, #000000 50%, #0e0e0e 50%);
+    background-size: 10px 10px;
+    color: lightgreen;
+    font-family: "Space Mono", monospace;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+h2 {
+    font-size: 5rem;
+}
+
+form {
+    font-size: 2rem;
+}
+
+#captcha {
+    color: yellowgreen;
+    font-size: 3rem;
+}
+
+#in_captcha {
+    background-color: lightgreen;
+    color: black;
+    width: 100px;
+    font-size: 2rem;
+    padding: 10px;
+    font-family: "Space Mono", monospace;
+}
+
+input#in_captcha:enabled {
+    border-color: yellowgreen;
+}
+
+button {
+    background-color: lightgreen;
+    color: black;
+    font-family: "Space Mono", monospace;
+    border: none;
+    font-size: 2rem;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.hidden {
+    opacity: 0%;
+}
+
+.hidden:hover {
+    opacity: 100%;
+}
