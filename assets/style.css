@@ -18,7 +18,7 @@ h1 {
 }
 
 h2 {
-    font-size: 5rem;
+    font-size: 3rem;
 }
 
 form {
@@ -41,6 +41,13 @@ form {
 
 input#in_captcha:enabled {
     border-color: yellowgreen;
+}
+
+code,
+pre {
+    background-color: lightgreen;
+    color: black;
+    padding: 3px;
 }
 
 button {
