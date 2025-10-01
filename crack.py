@@ -10,14 +10,14 @@ from captcha import some_random_operation
 
 
 @aiohttp_jinja2.template("index.html")
-async def handle_home(request):
+async def handle_home(request: web.Request):
     session = await get_session(request)
     c, session["response"] = some_random_operation(20)
     return {"captcha": c}
 
 
 @aiohttp_jinja2.template("submit.html")
-async def handle_submit(request):
+async def handle_submit(request: web.Request):
     session = await get_session(request)
     resp = session.get("response")
     data = await request.post()
@@ -26,7 +26,13 @@ async def handle_submit(request):
 
 
 app = web.Application()
-app.add_routes([web.get("/", handle_home), web.post("/submit", handle_submit)])
+app.add_routes(
+    [
+        web.get("/", handle_home),
+        web.post("/submit", handle_submit),
+        web.static("/assets", "./assets"),
+    ]
+)
 aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader("./templates"))
 fernet_key = fernet.Fernet.generate_key()
 secret_key = base64.urlsafe_b64decode(fernet_key)
