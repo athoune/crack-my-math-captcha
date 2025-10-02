@@ -26,6 +26,15 @@ jobs:
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: containerd snapshoter
+        run: |
+          cat <<EOF >/etc/docker/daemon.json
+          {
+            "features": {
+              "containerd-snapshotter": true
+            }
+          }
+          EOF && systemctl restart docker
 
       - name: Build the Docker image
         run: >
