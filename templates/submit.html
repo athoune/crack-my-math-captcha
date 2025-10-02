@@ -1,1 +1,14 @@
-{% extends "base.html" %} {% block content %} {{ msg }} {% endblock %}
+{% extends "base.html" %} {% block content %}
+<div id="again">
+<a href="/">Same player, play again</a>
+</div>
+
+<h2>Result</h2>
+    <p>
+    {% if result %}
+Yes, you can do math.
+    {% else %}
+Oops, it's wrong.
+    {% endif %}
+    </p>
+{% endblock %}

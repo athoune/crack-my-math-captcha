@@ -25,7 +25,7 @@ async def handle_submit(request: web.Request):
     resp = session.get("response")
     data = await request.post()
     cap = data["captcha"]
-    return {"msg": "Yes" if str(resp) == cap else "No"}
+    return {"result": str(resp) == cap}
 
 
 async def handle_api_challenge(request: web.Request):

@@ -25,6 +25,19 @@ form {
     font-size: 2rem;
 }
 
+header {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+a:visited {
+    color: yellowgreen;
+}
+
+a:hover {
+    color: lightyellow;
+}
+
 p#prove-me {
     color: yellowgreen;
     font-size: 2rem;
