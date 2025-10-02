@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE_NAME: crack_my_math_captcha
+  IMAGE_NAME: crack-my-math-captcha
 
 jobs:
   build:
