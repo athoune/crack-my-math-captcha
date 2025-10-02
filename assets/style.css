@@ -18,11 +18,20 @@ h1 {
 }
 
 h2 {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 form {
     font-size: 2rem;
+}
+
+p#prove-me {
+    color: yellowgreen;
+    font-size: 2rem;
+    border: 3px dotted yellowgreen;
+    padding: 10px;
+    text-align: center;
+    margin: 50px;
 }
 
 #captcha {
