@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import base64
+import logging
 from cryptography import fernet
 from aiohttp_session import setup, get_session
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
@@ -43,6 +44,9 @@ async def handle_api_response(request: web.Request):
     return web.json_response(p["response"] == secret)
 
 
+logging.basicConfig(level=logging.INFO)
+access_log = logging.getLogger("aiohttp.access")
+
 app = web.Application()
 app.add_routes(
     [
@@ -62,4 +66,4 @@ app["fernet"] = fernet.Fernet(fernet_key)
 setup(app, EncryptedCookieStorage(secret_key))
 
 if __name__ == "__main__":
-    web.run_app(app)
+    web.run_app(app, access_log=access_log)
