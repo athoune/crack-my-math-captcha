@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build the Docker image
-        run: >
+        run: |
           docker buildx build
             --platform linux/amd64,linux/arm64
             --tag $IMAGE_NAME:latest .
