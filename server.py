@@ -8,6 +8,8 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from aiohttp import web
 import aiohttp_jinja2
 import jinja2
+import os
+
 
 from captcha import some_random_operation
 
@@ -16,7 +18,11 @@ from captcha import some_random_operation
 async def handle_home(request: web.Request):
     session = await get_session(request)
     c, session["response"] = some_random_operation(20)
-    return {"captcha": c}
+    return {
+        "captcha": c,
+        "plausible_domain": request.app["plausible_domain"],
+        "plausible_server": request.app["plausible_server"],
+    }
 
 
 @aiohttp_jinja2.template("submit.html")
@@ -25,7 +31,11 @@ async def handle_submit(request: web.Request):
     resp = session.get("response")
     data = await request.post()
     cap = data["captcha"]
-    return {"result": str(resp) == cap}
+    return {
+        "result": str(resp) == cap,
+        "plausible_domain": request.app["plausible_domain"],
+        "plausible_server": request.app["plausible_server"],
+    }
 
 
 async def handle_api_challenge(request: web.Request):
@@ -63,6 +73,9 @@ aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader("./templates"))
 fernet_key = fernet.Fernet.generate_key()
 secret_key = base64.urlsafe_b64decode(fernet_key)
 app["fernet"] = fernet.Fernet(fernet_key)
+app["plausible_server"] = os.getenv("PLAUSIBLE_SERVER")
+app["plausible_domain"] = os.getenv("PLAUSIBLE_DOMAIN")
+print("Plausible:", app["plausible_server"], app["plausible_domain"])
 setup(app, EncryptedCookieStorage(secret_key))
 
 if __name__ == "__main__":
