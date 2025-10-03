@@ -7,11 +7,11 @@
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <link rel="shortcut icon" href="/assets/hacker.png" type="image/png" />
-        {% if plausible_domain is not none %}
+        {% if plausible_domain != "" %}
         <script
             defer
-            data-domain="{{ plausible_domain }}"
-            src="https://{{ plausible_server }}/js/script.js"
+            data-domain="{{ captcha_domain }}"
+            src="https://{{ plausible_domain }}/js/script.js"
         ></script>
         {% endif%}
     </head>

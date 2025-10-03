@@ -21,7 +21,7 @@ async def handle_home(request: web.Request):
     return {
         "captcha": c,
         "plausible_domain": request.app["plausible_domain"],
-        "plausible_server": request.app["plausible_server"],
+        "captcha_domain": request.app["captcha_domain"],
     }
 
 
@@ -34,7 +34,7 @@ async def handle_submit(request: web.Request):
     return {
         "result": str(resp) == cap,
         "plausible_domain": request.app["plausible_domain"],
-        "plausible_server": request.app["plausible_server"],
+        "captcha_domain": request.app["captcha_domain"],
     }
 
 
@@ -73,9 +73,9 @@ aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader("./templates"))
 fernet_key = fernet.Fernet.generate_key()
 secret_key = base64.urlsafe_b64decode(fernet_key)
 app["fernet"] = fernet.Fernet(fernet_key)
-app["plausible_server"] = os.getenv("PLAUSIBLE_SERVER")
-app["plausible_domain"] = os.getenv("PLAUSIBLE_DOMAIN")
-print("Plausible:", app["plausible_server"], app["plausible_domain"])
+app["captcha_domain"] = os.getenv("CAPTCHA_DOMAIN", "")
+app["plausible_domain"] = os.getenv("PLAUSIBLE_DOMAIN", "")
+print("Plausible:", app["captcha_domain"], app["plausible_domain"])
 setup(app, EncryptedCookieStorage(secret_key))
 
 if __name__ == "__main__":
