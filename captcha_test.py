@@ -12,8 +12,13 @@ def test_to_text():
 def test_operations():
     assert operation(2, 3, "+") == ("two + three", 5)
     assert operation(5, 3, "-") == ("five - three", 2)
+    assert operation( 3, 5, "-") == ("five - three", 2)
     assert operation(2, 3, "*") == ("two * three", 6)
     assert operation(6, 3, "/") == (
         "eighteen / three",
         6,
     )  # only integer division are cutes
+    assert operation( 3, 6, "/") == (
+        "eighteen / three",
+        6
+    )
