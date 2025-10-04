@@ -10,7 +10,7 @@ NUMBERS = {
     5: "five",
     6: "six",
     7: "seven",
-    8: "height",
+    8: "eight",
     9: "nine",
     10: "ten",
     11: "eleven",
@@ -20,7 +20,7 @@ NUMBERS = {
     15: "fifteen",
     16: "sixteen",
     17: "seventeen",
-    18: "heighteen",
+    18: "eighteen",
     19: "nineteen",
     20: "twenty",
     30: "thirty",
@@ -28,7 +28,7 @@ NUMBERS = {
     50: "fifty",
     60: "sixty",
     70: "seventy",
-    80: "heighty",
+    80: "eighty",
     90: "ninety",
 }
 
