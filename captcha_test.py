@@ -15,5 +15,5 @@ def test_operations():
     assert operation(2, 3, "*") == ("two * three", 6)
     assert operation(6, 3, "/") == (
         "eighteen / three",
-        2,
+        6,
     )  # only integer division are cutes
