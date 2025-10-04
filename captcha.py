@@ -35,10 +35,9 @@ NUMBERS = {
 
 def to_text(n: int) -> str:
     assert isinstance(n, int)
-    assert n < 100
-    if n < 20:
-        return NUMBERS[n]
     a, b = divmod(n, 10)
+    if n <= 20 or b == 0:
+        return NUMBERS[n]
     return NUMBERS[a * 10] + " " + NUMBERS[b]
 
 

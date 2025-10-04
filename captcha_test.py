@@ -4,6 +4,9 @@ from captcha import to_text, operation
 def test_to_text():
     assert to_text(0) == "zero"
     assert to_text(21) == "twenty one"
+    assert to_text(10) == "ten"
+    assert to_text(20) == "twenty"
+    assert to_text(30) == "thirty"
 
 
 def test_operations():
