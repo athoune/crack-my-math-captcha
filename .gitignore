@@ -1,1 +1,26 @@
+# Python
 __pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE / editor
+.ropeproject/
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+*.egg-info/

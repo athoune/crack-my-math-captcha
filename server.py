@@ -75,7 +75,11 @@ secret_key = base64.urlsafe_b64decode(fernet_key)
 app["fernet"] = fernet.Fernet(fernet_key)
 app["captcha_domain"] = os.getenv("CAPTCHA_DOMAIN", "")
 app["plausible_domain"] = os.getenv("PLAUSIBLE_DOMAIN", "")
-print("Plausible:", app["captcha_domain"], app["plausible_domain"])
+logging.info(
+    "Plausible domain: %s, Captcha domain: %s",
+    app["captcha_domain"],
+    app["plausible_domain"],
+)
 setup(app, EncryptedCookieStorage(secret_key))
 
 if __name__ == "__main__":

@@ -24,6 +24,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+
       - name: Set up Docker
         uses: docker/setup-docker-action@v4
         with:
@@ -34,39 +35,31 @@ jobs:
                 "containerd-snapshotter": true
               }
             }
+
       # See https://depot.dev/blog/multi-platform-docker-images-in-github-actions
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
-      - uses: docker/build-push-action@v5
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: Log in to registry
         run: >
           echo "${{ secrets.GITHUB_TOKEN }}"
           | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Build the Docker image
-        run: >
-          docker buildx build
-          --platform linux/amd64,linux/arm64
-          --load
-          --tag $IMAGE_NAME:latest .
-          && docker tag $IMAGE_NAME:latest $IMAGE_NAME:$(date +%s)
-      - name: Push image
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          [ "$VERSION" == "main" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name == 'push' }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Attest
+        if: github.event_name == 'push'
         uses: actions/attest-build-provenance@v3
         id: attest
         with:

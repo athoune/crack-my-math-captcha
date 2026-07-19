@@ -34,19 +34,30 @@ NUMBERS = {
 
 
 def to_text(n: int) -> str:
+    """Convert an integer (0–999) to its English text representation."""
     assert isinstance(n, int)
-    a, b = divmod(n, 10)
-    if n <= 20 or b == 0:
+    assert 0 <= n <= 999, f"Number out of supported range: {n}"
+    if n <= 20:
         return NUMBERS[n]
-    return NUMBERS[a * 10] + " " + NUMBERS[b]
+    if n < 100:
+        a, b = divmod(n, 10)
+        if b == 0:
+            return NUMBERS[a * 10]
+        return NUMBERS[a * 10] + " " + NUMBERS[b]
+    # n is 100–999
+    hundreds, remainder = divmod(n, 100)
+    result = NUMBERS[hundreds] + " hundred"
+    if remainder == 0:
+        return result
+    return result + " " + to_text(remainder)
 
 
-def some_random_operation(max: int = 100) -> tuple[str, int]:
+def some_random_operation(upper_bound: int = 100) -> tuple[str, int]:
     op = random.choice(["+", "-", "*", "/"])
     if op in "*/":
-        max = int(max**0.5)
-    a = random.randint(1, max)
-    b = random.randint(1, max)
+        upper_bound = int(upper_bound**0.5)
+    a = random.randint(1, upper_bound)
+    b = random.randint(1, upper_bound)
     return operation(a, b, op)
 
 

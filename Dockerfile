@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM alpine:3.22 AS dev
+FROM --platform=$BUILDPLATFORM alpine:3.24 AS dev
 ARG BUILDPLATFORM
 
 RUN adduser -D captcha
@@ -11,7 +11,7 @@ RUN ./venv/bin/python -m poetry install --no-root --no-cache
 RUN ./venv/bin/python -m poetry run pytest --cov -p no:cacheprovider .
 
 
-FROM --platform=$BUILDPLATFORM alpine:3.22
+FROM --platform=$BUILDPLATFORM alpine:3.24
 ARG BUILDPLATFORM
 
 RUN adduser -D captcha
