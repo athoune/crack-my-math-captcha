@@ -25,4 +25,4 @@ ENV PLAUSIBLE_DOMAIN=""
 ENV CAPTCHA_DOMAIN=""
 EXPOSE 8080
 
-CMD ["/usr/local/bin/poetry", "run", "/home/captcha/server.py"]
+CMD ["./venv/bin/python", "server.py"]

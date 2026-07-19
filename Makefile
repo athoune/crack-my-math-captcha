@@ -7,8 +7,11 @@ docker-image:
 		--load \
 		--tag crack-my-math-captcha .
 
+docker-image-native:
+	docker buildx build \
+		--tag crack-my-math-captcha .
 docker-test:
-	docker run -t --rm crack-my-math-captcha poetry run pytest -p no:cacheprovider .
+	docker run -t --rm crack-my-math-captcha ./venv/bin/python -m pytest -p no:cacheprovider .
 
 test:
 	poetry run pytest .
